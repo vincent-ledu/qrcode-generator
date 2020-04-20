@@ -1,14 +1,22 @@
 <html>
+  <head>
+    <link rel="stylesheet" type="text/css" media="all" href="style.css">
+    <link rel="stylesheet" type="text/css" media="print" href="print.css">
+  </head>
   <body>
+    <section id="generator">
     <p>
       source code: https://github.com/vincent-ledu/qrcode-generator
     </p>
       <p><label>SSID</label><input type="text" id="ssid" name="ssid" /></p>
+      
+      <p><label>Hidden?</label><input type="checkbox" name="hidden" id="hidden" title="Is your SSID hidden?"></p>
       <p>
         <label>Authentification mode:</label>
         <select id="security" name="security">
           <option value="WPA">WPA/WPA2</option>
           <option value="WEP">WEP</option>
+          <option value="nopass">None</option>
         </select>
       </p>
       <p>
@@ -16,7 +24,7 @@
         <input type="password" id="pwd" name="pwd" />
       </p>
       <p><button onclick="reloadqr()">Get QR Code</button></p>
-    
+    </section>
     <div id="qr" name="qr"></div>
     <script>
       function reloadqr() {
@@ -32,7 +40,9 @@
         var ssid = document.getElementById("ssid").value;
         var security = document.getElementById("security").value;
         var pwd = document.getElementById("pwd").value;
-        xhttp.send("ssid="+ssid+"&security="+security+"&pwd="+pwd);
+        var hidden = document.getElementById("hidden").checked;
+        console.log("hidden: " + hidden)
+        xhttp.send("ssid="+ssid+"&security="+security+"&pwd="+pwd+"&hidden="+hidden);
       }
     </script>
   </body>

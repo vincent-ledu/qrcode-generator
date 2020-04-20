@@ -12,18 +12,24 @@ app.get('/', function (req, res) {
     res.send('up')
 })
 
-app.post('/wifi', [
-    check('ssid').stripLow(),
-    check('security').stripLow(),
-    check('pwd').stripLow()
-  ], (req, res) => {
+app.post('/wifi', (req, res) => {
     let ssid = req.body.ssid;
     let security = req.body.security; // WPA
     let pwd = req.body.pwd;
+    console.log('req.body.hidden: ' + req.body.hidden)
+    let hidden = (req.body.hidden.toLowerCase() == "true")
     console.log("ssid: " + ssid);
     console.log("security: " + security);
+    console.log("hidden: " + hidden);
+    let qrstring = 'WIFI:T:'+security+';S:'+ssid+';P:'+pwd+';';
+    if (hidden) {
+      qrstring += "H:true;";
+    }
+    console.log("typeof hiddend: " + typeof hidden)
+    qrstring += ";";
+    console.log("qrstring: " + qrstring);
     // WIFI:T:WPA;S:Salon;P:test;;
-    QRCode.toDataURL('WIFI:T:'+security+';S:'+ssid+';P:'+pwd+';;', function (err, url) {
+    QRCode.toDataURL(qrstring, function (err, url) {
         res.send('<img src="'+url+'">');
     })
 })
