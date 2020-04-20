@@ -35,3 +35,8 @@ Choice has been made to not use online app for security reason: an online app co
 ```
 
 * Reload you httpd server, the you can access the app.
+
+## External documentations
+
+* zxing doc about format for QR wifi: https://github.com/zxing/zxing/wiki/Barcode-Contents#wi-fi-network-config-android-ios-11
+* MeCard format on wikipedia: https://en.wikipedia.org/wiki/MeCard_(QR_code)
